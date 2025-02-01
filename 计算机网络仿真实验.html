@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Chapter 1 - Mdbook Template</title>
+        <title>计算机网络仿真实验 - 计算机网络</title>
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -30,15 +30,17 @@
 
         <!-- Custom theme stylesheets -->
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -60,19 +62,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -82,45 +81,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
-            </div>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
-
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +120,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">Mdbook Template</h1>
+                    <h1 class="menu-title">计算机网络</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -174,12 +153,42 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+<h1 id="计算机网络仿真实验"><a class="header" href="#计算机网络仿真实验">计算机网络仿真实验</a></h1>
+<h2 id="71-仿真软件的获取安装和汉化"><a class="header" href="#71-仿真软件的获取安装和汉化">7.1 仿真软件的获取、安装和汉化</a></h2>
+<h2 id="72-仿真软件的使用"><a class="header" href="#72-仿真软件的使用">7.2 仿真软件的使用</a></h2>
+<h2 id="73-实验1-访问web服务器加深对网络体系结构的理解"><a class="header" href="#73-实验1-访问web服务器加深对网络体系结构的理解">7.3 实验1 访问WEB服务器(加深对网络体系结构的理解)</a></h2>
+<h2 id="74-实验2-mac地址ip地址arp协议"><a class="header" href="#74-实验2-mac地址ip地址arp协议">7.4 实验2 MAC地址，IP地址，ARP协议</a></h2>
+<h2 id="75-实验3-总线型以太网的特性广播竞争总线冲突"><a class="header" href="#75-实验3-总线型以太网的特性广播竞争总线冲突">7.5 实验3 总线型以太网的特性（广播，竞争总线，冲突）</a></h2>
+<h2 id="76-实验4-集线器和交换机的区别"><a class="header" href="#76-实验4-集线器和交换机的区别">7.6 实验4 集线器和交换机的区别</a></h2>
+<h2 id="77-实验5-交换机的自学习算法"><a class="header" href="#77-实验5-交换机的自学习算法">7.7 实验5 交换机的自学习算法</a></h2>
+<h2 id="78-实验6-生成树协议stp的功能"><a class="header" href="#78-实验6-生成树协议stp的功能">7.8 实验6 生成树协议STP的功能</a></h2>
+<h2 id="79-实验7-虚拟局域网vlan"><a class="header" href="#79-实验7-虚拟局域网vlan">7.9 实验7 虚拟局域网VLAN</a></h2>
+<h2 id="710-实验8-ipv4地址--分类地址"><a class="header" href="#710-实验8-ipv4地址--分类地址">7.10 实验8 IPv4地址 — 分类地址</a></h2>
+<h2 id="711-实验9-ipv4地址--划分子网"><a class="header" href="#711-实验9-ipv4地址--划分子网">7.11 实验9 IPv4地址 — 划分子网</a></h2>
+<h2 id="712-实验10-ipv4地址--构造超网无分类编址"><a class="header" href="#712-实验10-ipv4地址--构造超网无分类编址">7.12 实验10 IPv4地址 — 构造超网（无分类编址）</a></h2>
+<h2 id="713-实验11-ip数据报的发送和转发流程"><a class="header" href="#713-实验11-ip数据报的发送和转发流程">7.13 实验11 IP数据报的发送和转发流程</a></h2>
+<h2 id="714-实验12-默认路由和特定主机路由"><a class="header" href="#714-实验12-默认路由和特定主机路由">7.14 实验12 默认路由和特定主机路由</a></h2>
+<h2 id="715-实验13-静态路由配置错误导致的路由环路问题"><a class="header" href="#715-实验13-静态路由配置错误导致的路由环路问题">7.15 实验13 静态路由配置错误导致的路由环路问题</a></h2>
+<h2 id="716-实验14-聚合了不存在的网络导致的路由环路问题"><a class="header" href="#716-实验14-聚合了不存在的网络导致的路由环路问题">7.16 实验14 聚合了不存在的网络导致的路由环路问题</a></h2>
+<h2 id="717-实验15-网络故障导致的路由环路问题"><a class="header" href="#717-实验15-网络故障导致的路由环路问题">7.17 实验15 网络故障导致的路由环路问题</a></h2>
+<h2 id="718-实验16-路由信息协议rip"><a class="header" href="#718-实验16-路由信息协议rip">7.18 实验16 路由信息协议RIP</a></h2>
+<h2 id="719-实验17-开放最短路径优先ospf"><a class="header" href="#719-实验17-开放最短路径优先ospf">7.19 实验17 开放最短路径优先OSPF</a></h2>
+<h2 id="720-实验18-边界网关协议bgp"><a class="header" href="#720-实验18-边界网关协议bgp">7.20 实验18 边界网关协议BGP</a></h2>
+<h2 id="721-实验19-网际控制报文协议icmp的应用"><a class="header" href="#721-实验19-网际控制报文协议icmp的应用">7.21 实验19 网际控制报文协议ICMP的应用</a></h2>
+<h2 id="722-实验20-运输层端口"><a class="header" href="#722-实验20-运输层端口">7.22 实验20 运输层端口</a></h2>
+<h2 id="723-实验21-vlan间通信的实现方法多臂路由"><a class="header" href="#723-实验21-vlan间通信的实现方法多臂路由">7.23 实验21 VLAN间通信的实现方法—“多臂路由”</a></h2>
+<h2 id="724-实验22-vlan间通信的实现方法单臂路由"><a class="header" href="#724-实验22-vlan间通信的实现方法单臂路由">7.24 实验22 VLAN间通信的实现方法—“单臂路由”</a></h2>
+<h2 id="725-实验23-vlan间通信的实现使用三层交换机"><a class="header" href="#725-实验23-vlan间通信的实现使用三层交换机">7.25 实验23 VLAN间通信的实现—使用三层交换机</a></h2>
+<h2 id="726-实验24-tcp的运输连接管理"><a class="header" href="#726-实验24-tcp的运输连接管理">7.26 实验24 TCP的运输连接管理</a></h2>
+<h2 id="727-实验25-动态主机配置协议dhcp的作用"><a class="header" href="#727-实验25-动态主机配置协议dhcp的作用">7.27 实验25 动态主机配置协议DHCP的作用</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="应用层.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
 
                         <div style="clear: both"></div>
@@ -188,6 +197,9 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="应用层.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
             </nav>
 

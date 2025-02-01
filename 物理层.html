@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>物理层 - 计算机网络</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">计算机网络</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="第二章物理层"><a class="header" href="#第二章物理层">第二章物理层</a></h1>
+<ul>
+<li><a href="#21-%E7%89%A9%E7%90%86%E5%B1%82%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">2.1 物理层的基本概念</a></li>
+<li><a href="#22-%E7%89%A9%E7%90%86%E5%B1%82%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93">2.2 物理层下面的传输媒体</a>
+<ul>
+<li><a href="#%E5%AF%BC%E5%BC%95%E5%9E%8B%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93">导引型传输媒体</a></li>
+<li><a href="#%E9%9D%9E%E5%AF%BC%E5%BC%95%E5%9E%8B%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93">非导引型传输媒体</a></li>
+</ul>
+</li>
+<li><a href="#23-%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F">2.3 传输方式</a>
+<ul>
+<li><a href="#%E4%B8%B2%E8%A1%8C%E4%BC%A0%E8%BE%93%E5%92%8C%E5%B9%B6%E8%A1%8C%E4%BC%A0%E8%BE%93">串行传输和并行传输</a></li>
+<li><a href="#%E5%90%8C%E6%AD%A5%E4%BC%A0%E8%BE%93%E5%92%8C%E5%BC%82%E6%AD%A5%E4%BC%A0%E8%BE%93">同步传输和异步传输</a></li>
+<li><a href="#%E5%8D%95%E5%90%91%E9%80%9A%E4%BF%A1%E5%8D%95%E5%B7%A5%E5%8F%8C%E5%90%91%E4%BA%A4%E6%9B%BF%E9%80%9A%E4%BF%A1%E5%8D%8A%E5%8F%8C%E5%B7%A5%E5%92%8C%E5%8F%8C%E5%90%91%E5%90%8C%E6%97%B6%E9%80%9A%E4%BF%A1%E5%85%A8%E5%8F%8C%E5%B7%A5">单向通信（单工）、双向交替通信（半双工）和双向同时通信（全双工）</a></li>
+</ul>
+</li>
+<li><a href="#24-%E7%BC%96%E7%A0%81%E4%B8%8E%E8%B0%83%E5%88%B6">2.4 编码与调制</a>
+<ul>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD">常用术语</a></li>
+<li><a href="#%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93%E4%B8%8E%E4%BF%A1%E9%81%93%E7%9A%84%E5%85%B3%E7%B3%BB">传输媒体与信道的关系</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E7%BC%96%E7%A0%81">常用编码</a>
+<ul>
+<li><a href="#%E4%B8%8D%E5%BD%92%E9%9B%B6%E7%BC%96%E7%A0%81">不归零编码</a></li>
+<li><a href="#%E5%BD%92%E9%9B%B6%E7%BC%96%E7%A0%81">归零编码</a></li>
+<li><a href="#%E6%9B%BC%E5%BD%BB%E6%96%AF%E7%89%B9%E7%BC%96%E7%A0%81">曼彻斯特编码</a></li>
+<li><a href="#%E5%B7%AE%E5%88%86%E6%9B%BC%E5%BD%BB%E6%96%AF%E7%89%B9%E7%BC%96%E7%A0%81">差分曼彻斯特编码</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B0%83%E5%88%B6">调制</a></li>
+<li><a href="#%E7%A0%81%E5%85%83">码元</a></li>
+<li><a href="#25-%E4%BF%A1%E9%81%93%E7%9A%84%E6%9E%81%E9%99%90%E5%AE%B9%E9%87%8F">2.5 信道的极限容量</a></li>
+<li><a href="#%E8%A1%A5%E5%85%85%E4%BF%A1%E9%81%93%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF">补充：信道复用技术</a>
+<ul>
+<li><a href="#%E9%A2%91%E5%88%86%E5%A4%8D%E7%94%A8%E6%97%B6%E5%88%86%E5%A4%8D%E7%94%A8%E5%92%8C%E7%BB%9F%E8%AE%A1%E6%97%B6%E5%88%86%E5%A4%8D%E7%94%A8">频分复用、时分复用和统计时分复用</a></li>
+<li><a href="#%E6%B3%A2%E5%88%86%E5%A4%8D%E7%94%A8">波分复用</a></li>
+<li><a href="#%E7%A0%81%E5%88%86%E5%A4%8D%E7%94%A8">码分复用</a></li>
+</ul>
+</li>
+<li><a href="#26-%E7%AB%A0%E8%8A%82%E5%B0%8F%E7%BB%93">2.6 章节小结</a></li>
+</ul>
+<h2 id="21-物理层的基本概念"><a class="header" href="#21-物理层的基本概念">2.1 物理层的基本概念</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241102232202.png" alt="" /></p>
+<h2 id="22-物理层下面的传输媒体"><a class="header" href="#22-物理层下面的传输媒体">2.2 物理层下面的传输媒体</a></h2>
+<p><strong>传输媒体</strong>也称为传输介质或传输媒介，他就是数据传输系统中在发送器和接收器之间的物理通路。<strong>传输媒体</strong>课分为两大类，即<strong>导引型传输媒体</strong>和<strong>非导引型传输媒体</strong></p>
+<p>传输媒体不属于计算机网络体系结构的任何一层。如果非要将它添加到体系结构中，那只能将其放置到物理层之下。</p>
+<h3 id="导引型传输媒体"><a class="header" href="#导引型传输媒体">导引型传输媒体</a></h3>
+<p>在导引型传输媒体中，电磁波被导引沿着固体媒体传播。</p>
+<p><strong>同轴电缆</strong></p>
+<p>基带同轴电缆（50Ω）：数字传输，过去用于局域网</p>
+<p>宽带同轴电缆（75Ω）：模拟传输，目前主要用于有线电视</p>
+<p>同轴电缆价格较贵且布线不够灵活和方便，随着集线器的出现，在局域网领域基本上都是采用双绞线作为传输媒体</p>
+<p><strong>双绞线</strong></p>
+<p>绞合的作用：</p>
+<ul>
+<li>抵御部分来自外界的电磁波干扰</li>
+<li>减少相邻导线的电磁干扰</li>
+</ul>
+<p><strong>光纤</strong></p>
+<p>优点：</p>
+<ul>
+<li>通信容量大：（25000~30000GHz的带宽）</li>
+<li>传输损耗小，远距离传输时更加经济</li>
+<li>抗雷电和电磁干扰性能好。这在大电流脉冲干扰的环境下尤为重要</li>
+<li>无串音干扰，保密性好，不易被窃听</li>
+<li>体积小，重量轻。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>割接需要专用设备</li>
+<li>光电接口价格较贵</li>
+</ul>
+<p>光在纤芯中传输的方式是不断地全反射</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241123125548.png" alt="" /></p>
+<p><strong>多模光纤</strong>：可以存在多条不同角度入射的光线在一条光纤中传输。这种光纤就称为<strong>多模光纤</strong>。</p>
+<p><strong>单模光纤</strong>：若光纤的直径减小到只有一个光的波长，则光纤就像一根波导那样，它可使光线一直向前传播，而不会产生多次反射。这样的光纤称为<strong>单模光纤</strong>。</p>
+<p><strong>电力线</strong></p>
+<h3 id="非导引型传输媒体"><a class="header" href="#非导引型传输媒体">非导引型传输媒体</a></h3>
+<p>非导引型传输媒体指的是不依赖物理导体进行信号传输的通信方式。相较于导引型传输媒体（如光纤、铜线等），非导引型传输媒体利用电磁波或声波在空间中传播，使得信号可以在无直接物理连接的情况下进行传输。</p>
+<p>常见的非导引型传输媒体包括：</p>
+<ol>
+<li><strong>无线电波</strong>：用于广播和移动通信，如Wi-Fi、手机信号等。</li>
+<li><strong>微波</strong>：用于点对点的通信链路，常见于电视发送和卫星通信。</li>
+<li><strong>红外线</strong>：用于短距离的通信，比如红外遥控器和某些类型的无线局域网。</li>
+<li><strong>声波</strong>：在某些特定应用中，如水下通信，声波可以作为传输介质。</li>
+<li>可见光</li>
+<li>LIFI</li>
+</ol>
+<p>非导引型传输媒体的优点包括更大的灵活性和更广的覆盖范围，但也可能受到环境因素的影响，如障碍物、干扰等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241123130405.png" alt="" /></p>
+<p>Li-Fi（Light Fidelity）是一种基于光的无线通信技术，通过调制可见光、紫外线和红外线来传输数据。与传统的Wi-Fi（无线保真）不同，Li-Fi利用光灯而不是电波进行数据传输，其基本原理是通过调节LED灯的光强度来编码数据。</p>
+<p>Li-Fi的工作原理：</p>
+<ol>
+<li><strong>调制光信号</strong>：LED灯可以快速开启和关闭，尽管人眼无法察觉到这些变化。通过这种调制方式，可以将数据转换为光信号。</li>
+<li><strong>接收器</strong>：光接收器（通常是光电二极管或相机）可以侦测到光的变化，将其转换回电信号，从而解码出数据。</li>
+</ol>
+<p>Li-Fi的优点：</p>
+<ul>
+<li><strong>高速传输</strong>：Li-Fi可以提供比传统Wi-Fi更快的数据传输速度，理论上可达几Gbps。</li>
+<li><strong>安全性</strong>：由于光不能穿透墙壁，因此信号更难被截获，提供了一种相对安全的通信方式。</li>
+<li><strong>无需频谱干扰</strong>：Li-Fi不依赖于无线频谱，可以解决频谱拥堵的问题，尤其是在信号拥挤的环境中。</li>
+</ul>
+<p>应用领域：</p>
+<ul>
+<li><strong>智能家居</strong>：用于设备间的高速数据交换。</li>
+<li><strong>医疗环境</strong>：在医院等对无线电波敏感的场所。</li>
+<li><strong>交通管理</strong>：通过灯光信号进行车辆间的数据通信。</li>
+<li><strong>户外和室内场所</strong>：包括商场、影院等，提供增值服务和信息传递。</li>
+</ul>
+<p>尽管Li-Fi具有很多优点，但也面临一些挑战，比如需要照明设备和接收器在视线范围内，并且在强光或复杂环境中信号可能会受到干扰。</p>
+<p>蜂窝移动通信（900MHz、1800MHz、3.4GHz）</p>
+<p>注：蜂窝网络中的几G代表第几代通信技术</p>
+<ul>
+<li>2G频段：GSM900和GSM1800在900MHz和1800MHz频段左右。技术标准：GSM、CDMA</li>
+<li>3G频段：1880MHz-1900MHz和2010MHz-2025MHz。四种标准：CDMA2000、WCDMA、TD-SCDMA、WiMAX</li>
+<li>4G频段：1880-1900MHz、2320-2370MHz、2575-2635MHz。——150Mbps，关键技术：OFDM、MIMO、智能天线技术、SDR技术</li>
+<li>5G频段：3300-3400MHz（原则上限室内使用）、3400-3600MHz和4800-5000MHz。——10Gbps</li>
+</ul>
+<h2 id="23-传输方式"><a class="header" href="#23-传输方式">2.3 传输方式</a></h2>
+<h3 id="串行传输和并行传输"><a class="header" href="#串行传输和并行传输">串行传输和并行传输</a></h3>
+<p><strong>串行传输</strong>：数据是一个比特一个比特依次发送的，因此在发送端与接收端之间，只需要一条数据传输线路即可</p>
+<p><strong>并行传输</strong>：</p>
+<ul>
+<li>一次发送n个比特，因此，在发送端和接收端之间需要有n条传输线路</li>
+<li>并行传输的优点是比串行传输的速度n倍，但成本高</li>
+</ul>
+<p>数据在传输线路上的传输采用是<strong>串行传输</strong>，计算机内部的数据传输常用<strong>并行传输</strong></p>
+<h3 id="同步传输和异步传输"><a class="header" href="#同步传输和异步传输">同步传输和异步传输</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241123131215.png" alt="" /></p>
+<p><strong>同步传输</strong>：</p>
+<ul>
+<li>数据块以稳定的比特流的形式传输。字节之间没有间隔</li>
+<li>接收端在每个比特信号的中间时刻进行检测，以判别接收到的是比特0还是比特1</li>
+<li>由于不同设备的时钟频率存在一定差异，不可能做到完全相同，在传输大量数据的过程中，所产生的判别时刻的累计误差，会导致接收端对比特信号的判别错位。所以要使收发双发时钟保持同步</li>
+</ul>
+<p><strong>异步传输</strong>：</p>
+<ul>
+<li>以字节为独立的传输单位，字节之间的时间间隔不是固定的</li>
+<li>接收端仅在每个字节的起始处对字节内的比特实现同步</li>
+<li>通常在每个字节前后分别加上起始位和结束位</li>
+</ul>
+<h3 id="单向通信单工双向交替通信半双工和双向同时通信全双工"><a class="header" href="#单向通信单工双向交替通信半双工和双向同时通信全双工">单向通信（单工）、双向交替通信（半双工）和双向同时通信（全双工）</a></h3>
+<p>在许多情况下，我们要使用“<strong>信道（channel）</strong>”这一名词。信道和电路并不等同。信道一般都是用来表示向某一个方向传送信息的媒体。因此，一条通信电路往往包含一条发送信道和一条接收信道。</p>
+<p>从通信的双方信息交互的方式来看，可以有以下三种基本方式：</p>
+<p><strong>单向通信</strong>：又称为<strong>单工通信</strong>，即只能有一个方向的通信而没有反方向的交互。无线电广播或有线电以及电视广播就属于这种类型</p>
+<p><strong>双向交替通信</strong>：又称为<strong>半双工通信</strong>，即通信的双方可以发送信息，但不能双方同时发送（当然也就不能同时接收）。这种通信方式使一方发送另一方接收，过一段时间后可以再反过来</p>
+<p><strong>双向同时通信</strong>：又称为<strong>全双工通信</strong>，即通信的双发可以同时发送和接收信息。</p>
+<p><strong>单向通信</strong>只需要一条信道，而<strong>双向交替通信</strong>或<strong>双向同时通信</strong>则需要两条信道（每个方向各一条）。</p>
+<p><strong>双向同时通信</strong>的传输效率最高。</p>
+<h2 id="24-编码与调制"><a class="header" href="#24-编码与调制">2.4 编码与调制</a></h2>
+<h3 id="常用术语"><a class="header" href="#常用术语"><strong>常用术语</strong></a></h3>
+<ul>
+<li><strong>数据 (data)</strong> —— 运送消息的实体。</li>
+<li><strong>信号 (signal)</strong> —— 数据的电磁表现。</li>
+<li><strong>模拟信号 (analogous signal)</strong> —— 代表消息的参数的取值是连续的。</li>
+<li><strong>数字信号 (digital signal)</strong> —— 代表消息的参数的取值是离散的。</li>
+<li><strong>码元 (code)</strong> —— 在使用时间域（或简称为时域）的波形表示数字信号时，代表不同离散数值的基本波形。</li>
+<li><strong>基带信号</strong>（即基本频带信号）—— 来自信源的信号。像计算机输出的代表各种文字或图像文件的数据信号都属于基带信号。</li>
+<li>基带信号往往包含有较多的低频成分，甚至有直流成分，而许多信道并不能传输这种低频分量或直流分量。因此必须对基带信号进行<strong>调制</strong> (modulation)。</li>
+</ul>
+<p>在计算机网络中，常见的是将数字基带信号通过编码或调制的方法在相应信道进行传输</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241123131417.png" alt="" /></p>
+<h3 id="传输媒体与信道的关系"><a class="header" href="#传输媒体与信道的关系">传输媒体与信道的关系</a></h3>
+<p><strong>信道的几个基本概念</strong></p>
+<ul>
+<li><strong>信道</strong> —— 一般用来表示向某一个方向传送信息的媒体。</li>
+<li><strong>单向通信（单工通信）</strong>——只能有一个方向的通信而没有反方向的交互。</li>
+<li><strong>双向交替通信（半双工通信）</strong>——通信的双方都可以发送信息，但不能双方同时发送(当然也就不能同时接收)。</li>
+<li><strong>双向同时通信（全双工通信）</strong>——通信的双方可以同时发送和接收信息。</li>
+</ul>
+<p>严格来说，传输媒体不能和信道划等号。</p>
+<p>对于单工传输，传输媒体只包含一个信道，要么是发送信道，要么是接收信道。</p>
+<p>对于半双工和全双工，传输媒体中要包含两个信道，一个发送信道，另一个是接收信道。</p>
+<p>如果使用信道复用技术，一条传输媒体还可以包含多个信道。</p>
+<h2 id="常用编码"><a class="header" href="#常用编码">常用编码</a></h2>
+<h3 id="不归零编码"><a class="header" href="#不归零编码"><strong>不归零编码</strong></a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126121424.png" alt="" /></p>
+<ul>
+<li>正电平表示比特1/0</li>
+<li>负电平表示比特0/1</li>
+<li>中间的虚线是零电平，所谓不归零编码，就是指在整个码元时间内，电平不会出现零电平</li>
+</ul>
+<p><strong>实际比特1和比特0的表示要看现实怎么规定</strong></p>
+<p>这需要发送方的发送与接收方的接收做到严格的同步</p>
+<ul>
+<li>需要<strong>额外一根传输线来传输时钟信号</strong>，使发送方和接收方同步，接收方按时钟信号的节拍来逐个接收码元</li>
+<li><strong>但是</strong>对于计算机网络，<strong>宁愿利用这根传输线传输数据信号</strong>，而不是传输时钟信号</li>
+</ul>
+<p>由于<strong>不归零编码</strong>存在<strong>同步问题</strong>，因此计算机网络中的数据传输不采用这类编码！</p>
+<h3 id="归零编码"><a class="header" href="#归零编码"><strong>归零编码</strong></a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126122059.png" alt="" /></p>
+<p>归零编码虽然自同步，但<strong>编码效率低</strong></p>
+<h3 id="曼彻斯特编码"><a class="header" href="#曼彻斯特编码"><strong>曼彻斯特编码</strong></a></h3>
+<p>在每个码元时间的中间时刻，信号都会发生跳变</p>
+<ul>
+<li>负跳变表示比特1/0</li>
+<li>正跳变表示比特0/1</li>
+<li>码元中间时刻的跳变即表示时钟，又表示数据</li>
+</ul>
+<p><strong>实际比特1和比特0的表示要看现实怎么规定</strong></p>
+<p>传统以太网使用的就是曼切斯特编码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126122915.png" alt="" /></p>
+<h3 id="差分曼彻斯特编码"><a class="header" href="#差分曼彻斯特编码"><strong>差分曼彻斯特编码</strong></a></h3>
+<p>在每个码元时间的中间时刻，信号都会发送跳变，但与<strong>曼彻斯特不同</strong></p>
+<ul>
+<li><strong>跳变仅表示时钟</strong></li>
+<li><strong>码元开始处电平是否变换表示数据</strong></li>
+<li>变化表示比特1/0</li>
+<li>不变化表示比特0/1</li>
+</ul>
+<p><strong>实际比特1和比特0的表示要看现实怎么规定</strong></p>
+<p>比曼彻斯特编码变化少，更适合较高的传输速率</p>
+<h3 id="总结"><a class="header" href="#总结"><strong>总结</strong></a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126122947.png" alt="" /></p>
+<h2 id="调制"><a class="header" href="#调制">调制</a></h2>
+<p>数字信号转换为模拟信号，在模拟信道中传输，例如WiFi，采用补码键控CCK/直接序列扩频DSSS/正交频分复用OFDM等<strong>调制</strong>方式。</p>
+<p>模拟信号转换为另一种模拟信号，在模拟信道中传输，例如，语音数据加载到模拟的载波信号中传输。频分复用FDM技术，充分利用带宽资源。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126123017.png" alt="" /></p>
+<p><strong>基本调制方法</strong></p>
+<ul>
+<li><strong>调幅AM</strong>：所调制的信号由两种不同振幅的基本波形构成。每个基本波形只能表示1比特信息量。</li>
+<li><strong>调频FM</strong>：所调制的信号由两种不同频率的基本波形构成。每个基本波形只能表示1比特信息量。</li>
+<li><strong>调相PM</strong>：所调制的信号由两种不同初相位的基本波形构成。每个基本波形只能表示1比特信息量。</li>
+</ul>
+<p>但是使用基本调制方法，1个码元只能包含1个比特信息</p>
+<p><strong>混合调制</strong></p>
+<p>上图码元所对应的4个比特是错误的，码元不能随便对应4个比特</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126123411.png" alt="" /></p>
+<h2 id="码元"><a class="header" href="#码元">码元</a></h2>
+<p>在使用时间域的波形表示数字信号时，代表不同离散数值的基本波形。</p>
+<h2 id="25-信道的极限容量"><a class="header" href="#25-信道的极限容量">2.5 信道的极限容量</a></h2>
+<ul>
+<li>任何实际的信道都不是理想的，在传输信号时会产生各种失真以及带来多种干扰。</li>
+<li>码元传输的速率越高，或信号传输的距离越远，或传输媒体质量越差，在信道的输出端的波形的失真就越严重。</li>
+</ul>
+<p>失真的原因：</p>
+<ul>
+<li>码元传输的速率</li>
+<li>信号传输的距离</li>
+<li>噪声干扰</li>
+<li>传输媒体质量</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126123936.png" alt="" /></p>
+<p>只要采用更好的调制方法，让码元可以携带更多的比特，岂不是可以无限制地提高信息的传输速率？</p>
+<p>答案是否定的。因为信道的极限信息传输速率还要受限于实际的信号在信道中传输时的信噪比</p>
+<p>奈氏准则和香农公式对比：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126124340.png" alt="" /></p>
+<p>在信道带宽一定的情况下，根据奈氏准则和香农公式，要想提高信息的传输速率就必须采用多元制
+（更好的调制方法）和努力提高信道中的信噪比</p>
+<p>自从香农公式发表后，各种新的信号处理和调制方法就不断出现，其目的都是为了尽可能地接近香农公式给出的传输速率极限</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126124602.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img20241126124934.png" alt="" /></p>
+<h2 id="补充信道复用技术"><a class="header" href="#补充信道复用技术">补充：信道复用技术</a></h2>
+<p>本节内容视频未讲到，是《计算机网络（第7版）谢希仁》物理层的内容</p>
+<h3 id="频分复用时分复用和统计时分复用"><a class="header" href="#频分复用时分复用和统计时分复用">频分复用、时分复用和统计时分复用</a></h3>
+<p>复用 (multiplexing) 是通信技术中的基本概念。</p>
+<p>它允许用户使用一个共享信道进行通信，降低成本，提高利用率。</p>
+<p><strong>频分复用 FDM (Frequency Division Multiplexing)</strong></p>
+<ul>
+<li>将整个带宽分为多份，用户在分配到一定的频带后，在通信过程中自始至终都占用这个频带。</li>
+<li><strong>频分复用</strong>的所有用户在同样的时间<strong>占用不同的带宽资源</strong>（请注意，这里的“带宽”是频率带宽而不是数据的发送速率）。</li>
+</ul>
+<p><strong>时分复用TDM (Time Division Multiplexing)</strong></p>
+<ul>
+<li><strong>时分复用</strong>则是将时间划分为一段段等长的<strong>时分复用帧（TDM帧）</strong>。每一个时分复用的用户在每一个 TDM 帧中占用固定序号的时隙。</li>
+<li>每一个用户所占用的时隙是<strong>周期性地出现</strong>（其周期就是TDM帧的长度）的。</li>
+<li>TDM 信号也称为<strong>等时</strong> (isochronous) 信号。</li>
+<li><strong>时分复用的所有用户在不同的时间占用同样的频带宽度。</strong></li>
+</ul>
+<p>时分复用可能会造成线路资源的浪费</p>
+<p>使用时分复用系统传送计算机数据时，由于计算机数据的突发性质，用户对分配到的子信道的利用率一般是不高的。</p>
+<p><strong>统计时分复用 STDM (Statistic TDM)</strong></p>
+<h3 id="波分复用"><a class="header" href="#波分复用">波分复用</a></h3>
+<p>波分复用 WDM(Wavelength Division Multiplexing)</p>
+<h3 id="码分复用"><a class="header" href="#码分复用">码分复用</a></h3>
+<p>码分复用 CDM (Code Division Multiplexing)</p>
+<p>常用的名词是<strong>码分多址</strong> CDMA (Code Division Multiple Access)。</p>
+<p>各用户使用经过特殊挑选的不同码型，因此彼此不会造成干扰。</p>
+<p>这种系统发送的信号有很强的抗干扰能力，其频谱类似于白噪声，不易被敌人发现。</p>
+<h2 id="26-章节小结"><a class="header" href="#26-章节小结">2.6 章节小结</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241102100050.png" alt="" /></p>
+<p>基带传输和宽带传输是两种不同的数据传输方式，它们之间有几个关键区别：</p>
+<ol>
+<li>定义</li>
+</ol>
+<ul>
+<li><strong>基带传输</strong>：指在一个信道上只传输一个信号，通常是数字信号。信号在信道内以其原始形式进行传输，无需调制。</li>
+<li><strong>宽带传输</strong>：指可以在同一信道上同时传输多个信号，通常是模拟信号。它涉及频分复用（FDM）技术，可以将信道划分为多个频带，每个频带传输一个信号。</li>
+</ul>
+<ol start="2">
+<li>传输方式</li>
+</ol>
+<ul>
+<li><strong>基带传输</strong>：常用于短距离通信，如局域网（LAN）。信号强度随距离衰减，因此通常仅适合在较短的范围内传输。</li>
+<li><strong>宽带传输</strong>：适用于长距离通信，如电话网络和有线电视，通过调制技术可以有效地发送信号，因此适合在更大范围内传输。</li>
+</ul>
+<ol start="3">
+<li>频谱利用</li>
+</ol>
+<ul>
+<li><strong>基带传输</strong>：利用整个带宽来传输一个信号，但带宽使用效率较低，因为每次只能传输一种信息。</li>
+<li><strong>宽带传输</strong>：通过多个信号共享同一地带宽，提高了频谱的使用效率。</li>
+</ul>
+<ol start="4">
+<li>应用场景</li>
+</ol>
+<ul>
+<li><strong>基带传输</strong>：常见于 Ethernet（以太网）、串口通信和数字通信系统等。</li>
+<li><strong>宽带传输</strong>：应用于电话网络、视频监控及互联网高速接入等。</li>
+</ul>
+<ol start="5">
+<li>信号特性</li>
+</ol>
+<ul>
+<li><strong>基带传输</strong>：通常传输的是数字信号，适合传输数据而不适合传输模拟信号。</li>
+<li><strong>宽带传输</strong>：可以传输模拟信号及数字信号，并且通常涉及对信号的调制和解调过程。</li>
+</ul>
+<p>总结来说，基带传输通常用于短距和局域网环境，适合简单的数字信号传输；而宽带传输则适合远程和大规模的信号传输，能够高效利用频段资源。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="计算机网络概述.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="数据链路层.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="计算机网络概述.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="数据链路层.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
